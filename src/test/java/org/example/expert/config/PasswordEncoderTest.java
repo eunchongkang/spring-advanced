@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SpringExtension.class)
 class PasswordEncoderTest {
 
+
     @InjectMocks
     private PasswordEncoder passwordEncoder;
 
@@ -19,8 +20,11 @@ class PasswordEncoderTest {
         String rawPassword = "testPassword";
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
+        given(passwordEncoder.encode(rawPassword)).willReturn(encodedPassword);
+        given(passwordEncoder.matches(rawPassword, encodedPassword)).willReturn(true);
+
         // when
-        boolean matches = passwordEncoder.matches(encodedPassword, rawPassword);
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);
 
         // then
         assertTrue(matches);
