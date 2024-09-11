@@ -27,6 +27,10 @@ public class AuthService {
     @Transactional
     public SignupResponse signup(SignupRequest signupRequest) {
 
+        if(signupRequest.getEmail() == null) {
+            throw new InvalidRequestException("이메일이 필요합니다.")
+        }
+
         String encodedPassword = passwordEncoder.encode(signupRequest.getPassword());
 
         UserRole userRole = UserRole.of(signupRequest.getUserRole());
