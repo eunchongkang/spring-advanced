@@ -15,7 +15,7 @@ public class CheckedAop {
 
     @Around("comment() || user()")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable{
-        String userId = httpServletRequest.getHeader("Authorization");
+        String userId = httpServletRequest.getAttribute(userId)
         long startTime = System.currentTimeMillis();
         String requestUri = httpServletRequest.getRequestURI();
         try{
@@ -25,8 +25,6 @@ public class CheckedAop {
         }
     }
 }
-
-
 
 
 
